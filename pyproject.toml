@@ -1,0 +1,16 @@
+[project]
+name = "swarm-rl"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "stable-baselines3",
+    "supersuit>=3.10.0",
+    "swarm-zoo",
+    "tensorboard>=2.19.0",
+    "wandb>=0.20.1",
+]
+
+[tool.uv.sources]
+stable-baselines3 = { git = "https://github.com/maxhuettenrauch/stable-baselines3.git", branch = "feat/graph-spaces" }
+swarm-zoo = { git = "https://github.com/maxhuettenrauch/swarm-zoo.git" }
