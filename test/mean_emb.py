@@ -2,18 +2,18 @@ import supersuit as ss
 import torch
 from swarm_zoo.point_envs.rendezvous import RendezvousEnv, SetObsWrapper
 
-from src.swarm_rl.policy_modules import MeanEmbeddingPolicy
+from src.swarm_rl.policy_modules.mean_embedding_policy import ActorCriticMeanEmbeddingPolicy
 
 
 if __name__ == '__main__':
 
-    env = RendezvousEnv(num_agents=4, render_mode=None)
+    env = RendezvousEnv(num_agents=4, render_mode='human')
     env = SetObsWrapper(env)
     env = ss.pettingzoo_env_to_vec_env_v1(env)
     env = ss.concat_vec_envs_v1(env, 4, 0, base_class='gymnasium')
-    policy = MeanEmbeddingPolicy(env.observation_space, env.action_space, lambda t: 0.01,
-                                 features_extractor_kwargs={'features_dim': 64},
-                                 net_arch={'pi': [64], 'vf': [64]})
+    policy = ActorCriticMeanEmbeddingPolicy(env.observation_space, env.action_space, lambda t: 0.01,
+                                            features_extractor_kwargs={'features_dim': 64},
+                                            net_arch={'pi': [64], 'vf': [64]})
     obs, info = env.reset(seed=0)
 
     ret = [0, 0]
